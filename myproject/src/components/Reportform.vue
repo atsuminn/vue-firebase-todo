@@ -58,12 +58,13 @@
           <flex>
             <v-data-table :headers="headers" :items="reports" :search="search" class="elevation-1">
               <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{props.item.studentid}}</td>
+                <td class="text-xs-left">{{props.item.num}}</td>
                 <td class="text-xs-left">{{props.item.company}}</td>
+                <td class="text-xs-left">{{props.item.date}}</td>
                 <td class="text-xs-left">{{props.item.place}}</td>
-                <td class="text-xs-left">{{props.item.startdate}}</td>
-                <td class="text-xs-left">{{props.item.enddate}}</td>
-                <td class="text-xs-left">{{props.item.content}}</td>
+                <td class="text-xs-left">{{props.item.exam}}</td>
+                <td class="text-xs-left">{{props.item.aptitude}}</td>
+                <td class="text-xs-left">{{props.item.overview}}</td>
                 <td class="text-xs-left">{{props.item.status}}</td>
                 <td class="justify-center layout px-0">
                   <v-icon small class="mr-2" @click="editItem(props.item)">
@@ -136,25 +137,34 @@ export default {
           text:'Studentid',value:'studentid'
         },
         {
-          text:'Company',value:'company'  
+          text:'Place',value:'place' 
+        },
+        {
+          text:'Company',value:'company' 
+        },
+        {
+          text:'Way',value:'way' 
+        },
+        {
+          text:'Date',value:'date' 
         },
         {
           text:'Place',value:'place' 
         },
         {
-          text:'Startdate',value:'startdate' 
+          text:'Exam',value:'exam'
         },
         {
-          text:'Enddate',value:'enddate' 
+          text:'Result:',value:'result:' 
         },
         {
-          text:'Content',value:'content' 
+          text:'Aptitude',value:'aptitude' 
         },
         {
-          text:'Status',value:'status' 
+          text:'Overview',value:'overview' 
         },
         {
-          text:'Action',value:'action',sortable: false
+          text:'Status',value:'status'
         },
       ],
       reports:[],
