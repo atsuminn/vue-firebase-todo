@@ -7,7 +7,7 @@ import Createform from '@/components/Createform'
 import Top from '@/components/Top'
 import Home from '@/components/Home'
 import Navi from '@/components/Navi'
-import hoge from '@/components/hoge'
+import Teacher from '@/components/Teacher'
 import Reportform from '@/components/Reportform'
 import Makeform from '@/components/Makeform'
 
@@ -38,7 +38,8 @@ let router = new Router({
     },
     {
       path: '/teacher',
-      component: hoge
+      name: 'Teacher',
+      component: Teacher
     },
   	{
   		path: '/appform',

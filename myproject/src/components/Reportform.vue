@@ -1,5 +1,6 @@
 <template>
-  <div class="aa">
+  <div class="aa">]
+    <v-parallax v-bind:src="require('../assets/background.jpeg')" height="700">
     <navi/>
       <v-content>
         <v-container fluid pa-5 justify-end >
@@ -58,13 +59,16 @@
           <flex>
             <v-data-table :headers="headers" :items="reports" :search="search" class="elevation-1">
               <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{props.item.num}}</td>
+               <td class="text-xs-left">{{props.item.studentid}}</td>
                 <td class="text-xs-left">{{props.item.company}}</td>
+                <td class="text-xs-left">{{props.item.way}}</td>
                 <td class="text-xs-left">{{props.item.date}}</td>
                 <td class="text-xs-left">{{props.item.place}}</td>
                 <td class="text-xs-left">{{props.item.exam}}</td>
-                <td class="text-xs-left">{{props.item.aptitude}}</td>
+                <td class="text-xs-left">{{props.item.result}}</td>
+                <td class="text-xs-left">{{props.item.optitude}}</td>
                 <td class="text-xs-left">{{props.item.overview}}</td>
+                <td class="text-xs-left">{{props.item.content}}</td>
                 <td class="text-xs-left">{{props.item.status}}</td>
                 <td class="justify-center layout px-0">
                   <v-icon small class="mr-2" @click="editItem(props.item)">
@@ -82,6 +86,7 @@
           </flex>
           <router-view />
         </v-container>
+        <!-- <br/>
         <br/>
         <br/>
         <br/>
@@ -97,9 +102,9 @@
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
+        <br/> -->
       </v-content>
+    </v-parallax>
   </div>
 </template>
 
@@ -133,39 +138,42 @@ export default {
       drawer: false,
       search: '',
       headers: [
-        {
-          text:'Studentid',value:'studentid'
+       {
+          text:'学籍番号',value:'studentid'
         },
         {
-          text:'Place',value:'place' 
+          text:'会社名',value:'company' 
         },
         {
-          text:'Company',value:'company' 
+          text:'形態',value:'way' 
         },
         {
-          text:'Way',value:'way' 
+          text:'日付',value:'date' 
         },
         {
-          text:'Date',value:'date' 
+          text:'場所',value:'place' 
         },
         {
-          text:'Place',value:'place' 
+          text:'試験内容',value:'exam'
         },
         {
-          text:'Exam',value:'exam'
+          text:'結果',value:'result:' 
         },
         {
-          text:'Result:',value:'result:' 
+          text:'適性',value:'aptitude' 
         },
         {
-          text:'Aptitude',value:'aptitude' 
+          text:'概要',value:'overview' 
         },
         {
-          text:'Overview',value:'overview' 
+          text:'内容',value:'content'
+        },
+         {
+          text:'状況',value:'status'
         },
         {
-          text:'Status',value:'status'
-        },
+          text:'Action ',value:'action'
+        }
       ],
       reports:[],
       editedIndex: -1,

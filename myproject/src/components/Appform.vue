@@ -1,5 +1,6 @@
 <template>
   <div class="aa">
+    <v-parallax v-bind:src="require('../assets/background.jpeg')" height="720">
     <navi/>
       <v-content>
         <v-container fluid pa-5 justify-end >
@@ -81,24 +82,9 @@
           </flex>
           <router-view />
         </v-container>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+       
       </v-content>
+    </v-parallax>
   </div>
 </template>
 
@@ -133,25 +119,25 @@ export default {
       search: '',
       headers: [
         {
-          text:'Studentid',value:'studentid'
+          text:'学籍番号',value:'studentid'
         },
         {
-          text:'Company',value:'company'  
+          text:'会社名',value:'company'  
         },
         {
-          text:'Place',value:'place' 
+          text:'場所',value:'place' 
         },
         {
-          text:'Startdate',value:'startdate' 
+          text:'開始日',value:'startdate' 
         },
         {
-          text:'Enddate',value:'enddate' 
+          text:'終了日',value:'enddate' 
         },
         {
-          text:'Content',value:'content' 
+          text:'内容',value:'content' 
         },
         {
-          text:'Status',value:'status' 
+          text:'状況',value:'status' 
         },
         {
           text:'Action',value:'action',sortable: false

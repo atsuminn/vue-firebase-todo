@@ -74,7 +74,7 @@ export default {
           }
           else{
           alert('Success!')
-          this.$router.push('/')
+          this.$router.push('/home')
           console.log(this.email)
           }
         },

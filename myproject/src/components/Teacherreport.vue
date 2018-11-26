@@ -1,6 +1,6 @@
 <template>
   <div class="aa">
-    
+    <v-parallax v-bind:src="require('../assets/background.jpeg')" height="610">
       <v-content>
         <v-container fluid pa-5 justify-end >
           <v-layout row justify-center>
@@ -64,7 +64,7 @@
           </v-flex>
           <br/>
           <flex>
-            <v-data-table :headers="headers" :items="reports" :search="search">
+            <v-data-table :headers="headers" :items="reports" :search="search" class="elevation-1">
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">{{props.item.studentid}}</td>
                 <td class="text-xs-left">{{props.item.company}}</td>
@@ -92,6 +92,7 @@
             </v-data-table>
           </flex>
         </v-container>
+        <!-- <br/>
         <br/>
         <br/>
         <br/>
@@ -107,9 +108,9 @@
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
+        <br/> -->
       </v-content>
+    </v-parallax>
   </div>
 </template>
 
@@ -171,10 +172,10 @@ export default {
           text:'概要',value:'overview' 
         },
         {
-          text:'状況',value:'status'
-        },
-        {
           text:'内容',value:'content'
+        },
+         {
+          text:'状況',value:'status'
         },
         {
           text:'Action ',value:'action'
@@ -252,9 +253,9 @@ export default {
 }
 </script>
 <style scoped>
-.aa {
+/* .aa {
   background-image: url('../assets/background.jpeg') ;
-}
+} */
 .elevation-1 {
   opacity: 0.8
   ;

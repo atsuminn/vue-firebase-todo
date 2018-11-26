@@ -1,6 +1,6 @@
 <template>
   <div class="aa">
-    
+    <v-parallax v-bind:src="require('../assets/background.jpeg')" height="610">
       <v-content>
         <v-container fluid pa-5 justify-end >
           <v-layout row justify-center>
@@ -81,6 +81,7 @@
           </flex>
           
         </v-container>
+        <!-- <br/>
         <br/>
         <br/>
         <br/>
@@ -96,9 +97,9 @@
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
+        <br/> -->
       </v-content>
+    </v-parallax>
   </div>
 </template>
 

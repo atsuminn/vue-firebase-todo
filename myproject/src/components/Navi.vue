@@ -21,7 +21,7 @@
          <v-icon>folder_open</v-icon>
         </v-list-tile-action>
           <v-list-tile-content>
-          <v-list-tile-title>App Form</v-list-tile-title>
+          <v-list-tile-title>就職活動申請書作成</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
@@ -30,7 +30,7 @@
          <v-icon>folder_open</v-icon>
         </v-list-tile-action>
           <v-list-tile-content>
-          <v-list-tile-title>Report Form</v-list-tile-title>
+          <v-list-tile-title>受験報告書作成</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
