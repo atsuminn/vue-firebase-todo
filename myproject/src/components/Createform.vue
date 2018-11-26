@@ -1,10 +1,10 @@
 <template>
 <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <v-btn slot="activator" color="primary" dark>Create Reportform</v-btn>
+      <v-btn slot="activator" color="primary" dark>Create Appform</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Create Report</span>
+          <span class="headline">Create Appform</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>

@@ -1,101 +1,113 @@
 <template>
-<div class="aa">
-  <navi/>
-  <v-content>
-    <v-container fluid pa-5 justify-end >
-        <v-flex xs12 offset-xs7>
-        
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details>
-        </v-text-field>
-        </v-flex>
-        <br/>
-        <v-flex >
-        <v-data-table
-      :headers="headers"
-      :items="reports"
-      :search="search"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="props">
-          <td class="text-xs-left">{{props.item.studentid}}</td>
-          <td class="text-xs-left">{{props.item.company}}</td>
-          <td class="text-xs-left">{{props.item.place}}</td>
-          <td class="text-xs-left">{{props.item.startdate}}</td>
-          <td class="text-xs-left">{{props.item.enddate}}</td>
-          <td class="text-xs-left">{{props.item.content}}</td>
-          <td class="text-xs-left">{{props.item.status}}</td>
-          <td class="justify-center layout px-0">
-            <v-btn 
-            value = "hoge"
-            :loading="loading"
-            v-if= "!visible"
-            outline color="indigo"
-            @click="loader = 'loading',visible = true"
-            >
-            承認</v-btn>
-            <v-btn 
-            value = "hoge1"
-            :loading="loading"
-            v-if= "visible"
-            outline color="indigo"
-            @click="loader = 'loading',visible = false">
-            非承認</v-btn>
-            <v-icon
-              small
-              @click="editReport(props.item)"
-            >
-            edit
-            </v-icon>
-            <v-icon
-              small
-              @click="removeReport(props.item)"
-            >
-              delete
-            </v-icon>
-          </td>
-                </template>
-                
-            <v-alert slot="no-results" :value="true" color="error" icon="warning">
+  <div class="aa">
+    <navi/>
+      <v-content>
+        <v-container fluid pa-5 justify-end >
+          <v-layout row justify-center>
+            <v-dialog v-model="dialog" persistent max-width="600px">
+              <v-card>
+                <v-card-title>
+                  <span class="headline">Edit Report</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container grid-list-md>
+                    <v-layout wrap>
+                    <v-flex xs12>
+                      <v-text-field v-model="editedItem.studentid" label="studentid" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field v-model="editedItem.company" label="company" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field v-model="editedItem.place" label="place" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-menu :close-on-content-click="false"
+                      offset-x
+                      lazy transition="scale-transition" full-width min-width="290px">
+                        <v-text-field slot="activator" v-model="editedItem.startdate" label="startdate" prepend-icon="event" readonly>
+                        </v-text-field>
+                        <v-date-picker v-model="editedItem.startdate"></v-date-picker>
+                      </v-menu>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-menu :close-on-content-click="false" offset-x lazy transition="scale-transition" full-width min-width="290px">
+                        <v-text-field slot="activator" v-model="editedItem.enddate" label="startdate" prepend-icon="event" readonly>
+                        </v-text-field>
+                        <v-date-picker v-model="editedItem.enddate"></v-date-picker>
+                      </v-menu>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field v-model="editedItem.content" label="content" required></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                  <v-btn color="blue darken-1" flat @click="saveEdit(editedItem);dialog = false">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-layout>
+          <v-flex xs12 offset-xs7>
+            <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+          </v-flex>
+          <br/>
+          <flex>
+            <v-data-table :headers="headers" :items="reports" :search="search" class="elevation-1">
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-left">{{props.item.studentid}}</td>
+                <td class="text-xs-left">{{props.item.company}}</td>
+                <td class="text-xs-left">{{props.item.place}}</td>
+                <td class="text-xs-left">{{props.item.startdate}}</td>
+                <td class="text-xs-left">{{props.item.enddate}}</td>
+                <td class="text-xs-left">{{props.item.content}}</td>
+                <td class="text-xs-left">{{props.item.status}}</td>
+                <td class="justify-center layout px-0">
+                  <v-icon small class="mr-2" @click="editItem(props.item)">
+                    edit
+                  </v-icon>
+                  <v-icon small @click="removeReport(props.item)">
+                    delete
+                  </v-icon>
+                </td>
+              </template>
+              <v-alert slot="no-results" :value="true" color="error" icon="warning">
                 Your search for "{{ search }}" found no results.
-            </v-alert>
+              </v-alert>
             </v-data-table>
-        </v-flex>
-      
-        <router-view/>
-    </v-container>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-
-  </v-content>
-  
-</div>
+          </flex>
+          <router-view />
+        </v-container>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      </v-content>
+  </div>
 </template>
+
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script>
 import firebase from 'firebase'
 import {config} from '../firebase/firebase_config'
-import Navi from '@/components/Navi'
-/*
+
+import Navi from '@/components/Navi'/*
 export const config = {
   apiKey: "AIzaSyB8ZVjhyO5CvSpO4Iu6n0MmmsO_uOLPyPs",
   authDomain: "fk6-co.firebaseapp.com",
@@ -105,9 +117,9 @@ export const config = {
   messagingSenderId: "810812087591"
 }
 */
-const app = firebase.initializeApp(config);
-const db = app.database();
-const reportsRef = db.ref('report');
+var app = firebase.initializeApp(config)
+var db = firebase.database();
+var reportsRef = db.ref('report');
 export default {
   name: 'Appform',
   firebase: {
@@ -116,16 +128,9 @@ export default {
   components: {Navi},
   data () {
     return {
-      visible: true,
-      isPush : false,
-      loader: null,
-      loading: false,
       dialog: false,
       drawer: false,
       search: '',
-      labels:[
-        '承認','非承認'
-      ],
       headers: [
         {
           text:'Studentid',value:'studentid'
@@ -149,40 +154,63 @@ export default {
           text:'Status',value:'status' 
         },
         {
-          text:'State',value:'state'
+          text:'Action',value:'action',sortable: false
         },
-        {
-          text:'Edit・Delete',value:'edit'
-        },
-      ]
+      ],
+      reports:[],
+      editedIndex: -1,
+      editedItem: {
+        studentid: '',
+        campany: '',
+        place: '',
+        startdate: '',
+        enddate: '',
+        content: ''
+      },
+      defaultItem: {
+        studentid: '',
+        campany: '',
+        place: '',
+        startdate: '',
+        enddate: '',
+        content: ''
+      },
+      computed: {
+        formTitle () {
+          return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        }
+      },
+      watch: {
+        dialog (val) {
+          val || this.close()
+        }
+      },
     }
   },
   methods: {
-    pushBtn : function() {
-    this.isPush = true;
-
+    removeReport: function(report){
+      reportsRef.child(report['.key']).remove()
     },
-    editReport: function(app) {
-      var newPostKey = firebase.database().ref().child(app).push().key;
-      var updates = {};
-      updates['/posts/' + newPostKey] = postData;
-      updates['/user-posts/' + uid + '/' + newPostKey] = headers;
-
-      return firebase.database().ref().update(updates);
+    signOut: function () {
+      firebase.auth().signOut().then(() => {
+        this.$router.push('/signin')
+      })
     },
-    removeReport: function(app){
-      reportsRef.child(app['.key']).remove();
+    editItem: function(report){
+      this.editedItem = Object.assign({}, report)
+      this.dialog = true
+    },
+    saveEdit: function(report){
+      reportsRef.child(report['.key']).update({
+        "studentid": report.studentid,
+        "company": report.company,
+        "place": report.place,
+        "startdate": report.startdate,
+        "enddate": report.enddate,
+        "content": report.content,
+      })
     }
-  },
-  watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-        setTimeout(() => (this[l] = false), 1000)
-        this.loader = null
-        
-      }
-    }
+  }
 }
 </script>
 <style scoped>
