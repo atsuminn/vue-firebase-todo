@@ -3,9 +3,10 @@
   <v-container fluid ma-0 pa-0 fill-height>
     <v-layout class="text-xs-center" align-center justify-center>
   <v-form ref="form" v-model="valid" lazy-validation>
+    <h2>fk6.co</h2>
     <img src="../assets/logo.png">
     <v-text-field
-      v-model="username"
+      v-model="email"
       :rules="emailRules"
       label="E-mail"
       required
@@ -49,12 +50,13 @@
 -->
 <script>
 import firebase from 'firebase'
+var regexp = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@hcs.ac.jp$/;
 export default {
   name: 'Signin',
   data () {
     return {
       show: false,
-      username: '',
+      email: '',
       password: '',
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -64,10 +66,17 @@ export default {
   },
   methods: {
     signIn: function () {
-      firebase.auth().signInWithEmailAndPassword(this.username, this.password).then(
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => {
+          if(regexp.test(this.email)){
+            alert('Success!')
+            this.$router.push('/teacher')
+          }
+          else{
           alert('Success!')
-          this.$router.push('/appform')
+          this.$router.push('/')
+          console.log(this.email)
+          }
         },
         err => {
           alert(err.message)
@@ -100,7 +109,6 @@ a {
 }
 .signin {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;

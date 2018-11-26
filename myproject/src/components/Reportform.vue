@@ -105,8 +105,8 @@ export const config = {
   messagingSenderId: "810812087591"
 }
 */
-const app = firebase.initializeApp(config);
-const db = app.database();
+// const app = firebase.initializeApp(config);
+const db = firebase.database();
 const reportsRef = db.ref('report');
 export default {
   name: 'Appform',

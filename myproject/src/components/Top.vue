@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div>
   <v-parallax v-bind:src="require('../assets/background.jpeg')" height="600">
     <v-layout  column
         align-center
@@ -141,7 +141,7 @@
           </v-layout>
         </v-container>
 
-  </body>
+  </div>
 </template>
 <script>
 export default {

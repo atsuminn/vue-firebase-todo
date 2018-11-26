@@ -5,6 +5,12 @@ import Signup from '@/components/Signup'
 import Appform from '@/components/Appform'
 import Createform from '@/components/Createform'
 import Top from '@/components/Top'
+import Home from '@/components/Home'
+import Navi from '@/components/Navi'
+import hoge from '@/components/hoge'
+import Reportform from '@/components/Reportform'
+import Makeform from '@/components/Makeform'
+
 import firebase from 'firebase'
 Vue.use(Router)
 
@@ -19,6 +25,21 @@ let router = new Router({
       name: Top,
       component: Top
     },
+    {
+      path: '/home',
+      name: Home,
+      component: Home,
+      children: [
+        {
+          path: '',
+          component: Navi
+        }
+      ],
+    },
+    {
+      path: '/teacher',
+      component: hoge
+    },
   	{
   		path: '/appform',
   		name: 'Appform',
@@ -29,7 +50,19 @@ let router = new Router({
           component: Createform
         }
       ],
-  		meta: { requiresAuth: true }
+  		// meta: { requiresAuth: true }
+    },
+    {
+  		path: '/reportform',
+  		name: 'Reportform',
+  		component: Reportform,
+      children: [
+        {
+          path: '',
+          component: Makeform
+        }
+      ],
+  		// meta: { requiresAuth: true }
   	},
     {
       path: '/signin',
