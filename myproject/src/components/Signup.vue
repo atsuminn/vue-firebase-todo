@@ -17,6 +17,7 @@
   <v-container fluid ma-0 pa-0 fill-height>
   <v-layout class="text-xs-center" align-center justify-center>
   <v-form ref="form" v-model="valid" lazy-validation>
+    <h2>fk6.co</h2>
     <img src="../assets/logo.png">
     <v-text-field
       v-model="username"
@@ -41,6 +42,9 @@
       signup
     </v-btn>
     <v-btn @click="clear">clear</v-btn>
+        <p>You have a account?<br> 
+      <router-link to="/signin">sign in now!!</router-link>
+    </p>
   </v-form>
   </v-layout>
   </v-container>
@@ -53,6 +57,7 @@ export default {
   name: 'Signup',
   data () {
     return {
+      show: '',
       username: '',
       password: '',
       rules: {

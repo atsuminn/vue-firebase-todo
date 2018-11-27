@@ -1,105 +1,77 @@
 <template>
-  <div class="aa">
-    <v-parallax v-bind:src="require('../assets/background.jpeg')" height="610">
+  <div id="app">
+    <v-app>
+      <v-parallax v-bind:src="require('../assets/background.jpeg')" height="610">
       <v-content>
-        <v-container fluid pa-5 justify-end >
-          <v-layout row justify-center>
-            <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-container fluid ma-0 pa-0>
+          <v-layout justify-center align-center>
               <v-card>
                 <v-card-title>
-                  <span class="headline">Edit Report</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container grid-list-md>
-                    <v-layout wrap>
-                    <v-flex xs12>
-                      <v-text-field v-model="editedItem.studentid" label="学籍番号" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field v-model="editedItem.company" label="会社名" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field v-model="editedItem.place" label="場所" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-menu :close-on-content-click="false"
-                      offset-x
-                      lazy transition="scale-transition" full-width min-width="290px">
-                        <v-text-field slot="activator" v-model="editedItem.startdate" label="開始時間" prepend-icon="event" readonly>
-                        </v-text-field>
-                        <v-date-picker v-model="editedItem.startdate"></v-date-picker>
-                      </v-menu>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-menu :close-on-content-click="false" offset-x lazy transition="scale-transition" full-width min-width="290px">
-                        <v-text-field slot="activator" v-model="editedItem.enddate" label="終了時間" prepend-icon="event" readonly>
-                        </v-text-field>
-                        <v-date-picker v-model="editedItem.enddate"></v-date-picker>
-                      </v-menu>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field v-model="editedItem.content" label="content" required></v-text-field>
-                    </v-flex>
+                  <h2>Task</h2>
+                  <v-layout row justify-center>
+                    <v-dialog v-model="dialog" persistent max-width="600px">
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">Edit Report</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12>
+                              <h2>
+                                Now State:{{this.editedItem.status}}
+                              </h2>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-btn v-model="editedItem.status" label="status" required round color="success"
+                                @click="editedItem.status='承認'">承認</v-btn>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-btn v-model="editedItem.status" label="status" required round color="error"
+                                @click="editedItem.status='非承認'">非承認</v-btn>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                          <v-btn color="blue darken-1" flat @click="saveEdit(editedItem);dialog = false">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </v-layout>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" flat @click="saveEdit(editedItem);dialog = false">Save</v-btn>
-                </v-card-actions>
+
+                  <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+                </v-card-title>
+                <v-data-table :headers="headers" :items="reports" search="未承認" :filter="filter" class="elevation-1">
+                  <template slot="items" slot-scope="props">
+                    <td class="text-xs-left">{{props.item.studentid}}</td>
+                    <td class="text-xs-left">{{props.item.company}}</td>
+                    <td class="text-xs-left">{{props.item.place}}</td>
+                    <td class="text-xs-left">{{props.item.startdate}}</td>
+                    <td class="text-xs-left">{{props.item.enddate}}</td>
+                    <td class="text-xs-left">{{props.item.content}}</td>
+                    <td class="text-xs-left">{{props.item.status}}</td>
+                    <td class="justify-center layout px-0">
+                      <v-icon small class="mr-2" @click="editItem(props.item)">
+                        edit
+                      </v-icon>
+                    </td>
+                  </template>
+                  <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                    Your search for "{{ search }}" found no results.
+                  </v-alert>
+                </v-data-table>
               </v-card>
-            </v-dialog>
           </v-layout>
-          <v-flex xs12 offset-xs7>
-            <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-          </v-flex>
-          <br/>
-          <flex>
-            <v-data-table :headers="headers" :items="reports" :search="search" class="elevation-1" >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{props.item.studentid}}</td>
-                <td class="text-xs-left">{{props.item.company}}</td>
-                <td class="text-xs-left">{{props.item.place}}</td>
-                <td class="text-xs-left">{{props.item.startdate}}</td>
-                <td class="text-xs-left">{{props.item.enddate}}</td>
-                <td class="text-xs-left">{{props.item.content}}</td>
-                <td class="text-xs-left">{{props.item.status}}</td>
-                <td class="justify-center layout px-0">
-                  <v-icon small class="mr-2" @click="editItem(props.item)">
-                    edit
-                  </v-icon>
-                  <v-icon small @click="removeReport(props.item)">
-                    delete
-                  </v-icon>
-                </td>
-              </template>
-              <v-alert slot="no-results" :value="true" color="error" icon="warning">
-                Your search for "{{ search }}" found no results.
-              </v-alert>
-            </v-data-table>
-          </flex>
-          
         </v-container>
-        <!-- <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/> -->
       </v-content>
-    </v-parallax>
+      <v-footer color="dark" dark app inset>
+        <span class="white--text">&copy; 2018</span>
+      </v-footer>
+      </v-parallax>
+    </v-app>
   </div>
 </template>
 
@@ -108,7 +80,7 @@
 import firebase from 'firebase'
 import {config} from '../firebase/firebase_config'
 
-import Navi from '@/components/Navi'/*
+/*
 export const config = {
   apiKey: "AIzaSyB8ZVjhyO5CvSpO4Iu6n0MmmsO_uOLPyPs",
   authDomain: "fk6-co.firebaseapp.com",
@@ -118,15 +90,18 @@ export const config = {
   messagingSenderId: "810812087591"
 }
 */
-// var app = firebase.initializeApp(config)
+
+
 var db = firebase.database();
 var reportsRef = db.ref('report');
+
+
 export default {
+
   name: 'Appform',
   firebase: {
     reports: reportsRef
   },
-  components: {Navi},
   data () {
     return {
       dialog: false,
@@ -161,26 +136,17 @@ export default {
       reports:[],
       editedIndex: -1,
       editedItem: {
-        studentid: '',
-        campany: '',
-        place: '',
-        startdate: '',
-        enddate: '',
-        content: ''
+        status: ''
       },
       defaultItem: {
-        studentid: '',
-        campany: '',
-        place: '',
-        startdate: '',
-        enddate: '',
-        content: ''
+        status: ''
       },
       computed: {
         formTitle () {
           return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
         }
       },
+
       watch: {
         dialog (val) {
           val || this.close()
@@ -189,12 +155,9 @@ export default {
     }
   },
   methods: {
-    removeReport: function(report){
-      reportsRef.child(report['.key']).remove()
-    },
     signOut: function () {
       firebase.auth().signOut().then(() => {
-        this.$router.push('/signin')
+        this.$router.push('/Top')
       })
     },
     editItem: function(report){
@@ -203,23 +166,26 @@ export default {
     },
     saveEdit: function(report){
       reportsRef.child(report['.key']).update({
-        "studentid": report.studentid,
-        "company": report.company,
-        "place": report.place,
-        "startdate": report.startdate,
-        "enddate": report.enddate,
-        "content": report.content,
+        "status": report.status
       })
-    }
+    },
+    filter(val, search) {
+      return val === search;
+    },
+    appForm: function () {
+      this.$router.push('/appform')
+    },
+    reportForm: function () {
+      this.$router.push('/teacherform')
+    },
   }
 }
 </script>
-<style scoped>
-.aa {
-  background-image: url('../assets/background.jpeg') ;
+<style scoped="#app v-card">
+#app {
+  background-image: url('../assets/section.jpg');
 }
-.elevation-1 {
-  opacity: 0.8
-  ;
+.v-card {
+  opacity: 0.9
 }
 </style>

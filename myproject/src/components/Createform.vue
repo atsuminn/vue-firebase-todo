@@ -51,7 +51,7 @@
                 <v-text-field
                   slot="activator"
                   v-model="newReport.enddate"
-                  label="startdate"
+                  label="enddate"
                   prepend-icon="event"
                   readonly>
                 </v-text-field>
@@ -60,9 +60,6 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field v-model="newReport.content" label="content" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field v-model="newReport.status" label="status" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -96,7 +93,7 @@ export default {
         startdate: '',
         enddate: '',
         content: '',
-        status: '',
+        status: '未承認',
         menu: false,
         modal: false
       },
@@ -112,7 +109,6 @@ export default {
       this.newReport.startdate = '';
       this.newReport.enddate = '';
       this.newReport.content = '';
-      this.newReport.status = '';
     },
   }
 }

@@ -18,7 +18,7 @@ let router = new Router({
   routes: [
     {
       path: '*',
-      redirect: 'signin'
+      redirect: 'Top'
     },
     {
       path: '/',
@@ -35,11 +35,13 @@ let router = new Router({
           component: Navi
         }
       ],
+      meta: { requiresAuth: true }
     },
     {
       path: '/teacher',
       name: 'Teacher',
-      component: Teacher
+      component: Teacher,
+      meta: { requiresAuth: true }
     },
   	{
   		path: '/appform',
@@ -51,7 +53,7 @@ let router = new Router({
           component: Createform
         }
       ],
-  		// meta: { requiresAuth: true }
+  		meta: { requiresAuth: true }
     },
     {
   		path: '/reportform',
@@ -63,7 +65,7 @@ let router = new Router({
           component: Makeform
         }
       ],
-  		// meta: { requiresAuth: true }
+  		meta: { requiresAuth: true }
   	},
     {
       path: '/signin',
@@ -97,14 +99,14 @@ router.beforeEach((to, from, next) => {
 })
 */
 
-/*
+
 router.beforeEach((to, from, next) => {
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   let currentUser = firebase.auth().currentUser
   if (requiresAuth) {
     if (!currentUser) {
       next({
-        path: '/signin',
+        path: '/',
         query: { redirect: to.fullPath }
       })
     } else {
@@ -114,5 +116,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-*/
+
 export default router
